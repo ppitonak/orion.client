@@ -409,6 +409,12 @@ describe('File API', function() {
 				.end(done);
 			});
 		});
+		it('delete a non-existing file', function(done) {
+			app.request()
+			.del(PREFIX + '/project/my%20folder/nonexisting.txt')
+			.expect(204)
+			.end(done);
+		});
 		it('delete a directory', function(done) {
 			app.request()
 			.del(PREFIX + '/project/my%20folder')
@@ -513,6 +519,15 @@ describe('File API', function() {
 					done();
 				});
 			});
+		});
+		it('copy a directory to non-existing project', function(done) {
+			app.request()
+			.post(PREFIX + '/project/')
+			.set('Slug', 'copy_of_my_folder')
+			.set('X-Create-Options', 'copy')
+			.send({ Location: PREFIX + '/project_nonexisting/my%20folder' })
+			.expect(404)
+			.end(done);
 		});
 	});
 	/**
