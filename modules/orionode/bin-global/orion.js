@@ -15,11 +15,11 @@ var argv = process.argv;
 if(argv.length == 2) {
 	// if only 2, it's "node /path/to/orion.js" - no args
 	workspaceDir = cwd;
-	port = 8081;
+	port = process.env.PORT || 8081;
 } else if (argv.length == 3) {
 	// if 3, it should be "node /path/to/orion.js workspaceArg"
 	workspaceDir = path.resolve(cwd, argv[2]);
-	port = 8081;
+	port = process.env.PORT || 8081;
 } else {
 	// if more than 3, extra args passed; parse them
 	var args = argsLib.parseArgs(process.argv);
